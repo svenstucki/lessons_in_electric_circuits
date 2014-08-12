@@ -1,0 +1,40 @@
+%! PostScript set of library objects for XCircuit
+%  Version: 2.0
+%  Library name is: junk.lps
+%  Author:  <tony@localhost.localdomain>
+%
+
+% XCircuitLib library objects
+/diode {
+% -8 -48 36 96 bbox
+begingate
+% fundamental
+248  1.00 -18 -16 0 16 18 -16 3 polygon
+1  1.00 0 -48 0 -16 2 polygon
+1  1.00 0 48 0 16 2 polygon
+1  1.00 -18 16 18 16 2 polygon
+1.000 0.000 0.000 scb
+(d.m) {/Times-Roman 1.000 cf} 2 9 0 0 48 pinlabel
+(d.p) {/Times-Roman 1.000 cf} 2 13 0 0 -48 pinlabel
+sce
+endgate
+} def
+
+/SCR {
+% -40 -48 76 96 bbox
+begingate
+1  1.00 -40 -32 -16 -32 0 -16 3 polygon
+1.00 -181 8 0 diode
+endgate
+} def
+
+/_SCS {
+% -48 -48 96 96 bbox
+begingate
+1.00 0 -8 0 SCR
+1  1.00 48 32 24 32 8 16 3 polygon
+endgate
+} def
+
+
+% EndLib

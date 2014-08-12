@@ -1,0 +1,16 @@
+%! PostScript set of library objects for XCircuit
+%  Version: 2.0
+%  Library name is: junk
+%  Author:  <tony@localhost.localdomain>
+%
+
+% XCircuitLib library objects
+/angle {
+% -8 -16 24 32 bbox
+begingate
+1  1.00 16 16 -8 -16 16 -16 3 polygon
+endgate
+} def
+
+
+% EndLib
