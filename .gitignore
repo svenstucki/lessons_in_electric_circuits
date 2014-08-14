@@ -1,0 +1,6 @@
+# ignore png/eps files, to keep git staus clean
+*.png
+*.eps
+
+# vim swap files
+*.swp
