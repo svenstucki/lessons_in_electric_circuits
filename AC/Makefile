@@ -110,6 +110,32 @@ html : $(SRC) sml2html.sed
 	make AC_A3.html
 
 
+# Converts SubML to html, then into mobi
+epub: index_mobi.html
+	git checkout -- hi_*.html bye_*.html
+	-mkdir backup
+	# edit header from individual chapters
+	cp hi_*.html backup/
+	sed -i '/<a/d' hi_*.html
+	sed -i '/<body>/d' hi_*.html
+	sed -i '/<hr>/d' hi_*.html
+	sed -i '/<h1>Lessons/d' hi_*.html
+	# remove footer from chapters
+	cp bye_*.html backup/
+	echo bye_*.html | xargs -n1 cp /dev/null
+	# regenerate HTML
+	make -B html
+	# merge the two consecutive <h1> chapter headers
+	# multiline substitution like in http://austinmatzko.com/2008/04/26/sed-multi-line-search-and-replace/
+	sed -i -n '1h;1!H;$${;g;s/<h1>\(.*\)<\/h1>.*<h1>\(\&nbsp;\)*\(.*\)<\/h1>/<h1>\1: \U\3\L<\/h1>/g;p;}' AC_*.html
+	# generate epub output
+	ebook-convert index_mobi.html AC.epub --authors "Tony R. Kuphaldt" --language en --level1-toc //h:h1 --level2-toc //h:h2 --no-default-epub-cover
+
+
+# Create mobi output (takes longer than epub)
+mobi: epub
+	ebook-convert index_mobi.html AC.mobi --authors "Tony R. Kuphaldt" --language en --level1-toc //h:h1 --level2-toc //h:h2
+
 
 # Converts SubML source into TeX source
 basicac.tex : basicac.sml 
